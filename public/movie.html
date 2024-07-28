@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영화 소개</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        section {
+            background-color: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .movie {
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            margin: 0 0 10px 0;
+        }
+
+        p {
+            margin: 0 0 10px 0;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 비율 */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>영화 소개</h1>
+    </header>
+    <main>
+        <section id="about-movie">
+            <h2>소개</h2>
+            <p>여기서는 제가 좋아하는 영화들에 대해 소개합니다.</p>
+        </section>
+        <section id="favorite-movies">
+            <h2>추천 영화</h2>
+            <div class="movie">
+                <h3>영화 제목 1</h3>
+                <p>이 영화는 ...</p>
+                <td>
+                    <img src="img/img02.png" alt="영화1">
+                </td>
+            </div>
+            <div class="movie">
+                <h3>영화 제목 2</h3>
+                <p>이 영화는 ...</p>
+                <td>
+                    <img src="img/img03.png" alt="영화2">
+                </td>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 김성훈. All rights reserved.</p>
+    </footer>
+</body>
+</html>
