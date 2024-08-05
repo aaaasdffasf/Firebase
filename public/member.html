@@ -25,15 +25,15 @@
             text-align: center;
         }
         .memListTbl {
-            border: 1px solid black;
+            border: 0px solid black;
             width: 100%;
             border-collapse: collapse;
         }
         .memListTbl tr th {
             border: 1px solid black;
         }
-        .memListTbl td {
-            border: 1px solid black;
+         tr td {
+            border: 1px solid;
             text-align: center;
         }
         .subTbl tr td {
@@ -43,90 +43,54 @@
             border-bottom: 1 solid black;
         }
         div.container {
-            margin: auto;
-            max-width: 800px;
-            min-width: 600px;
+          margin: auto;
+          max-width: 800px;
+          min-width: 600px;
         }
     </style>
-    <script src="script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // 폼 제출 시 유효성 검사
-            document.querySelector('form').addEventListener('submit', function (event) {
-                const name = document.getElementById('name').value;
-                if (name.trim() === '') {
-                    alert('이름을 입력하세요.');
-                    event.preventDefault();
-                }
-            });
-        
-            // 검색 기능
-            const searchInput = document.querySelector('input[type="text"]');
-            const rows = document.querySelectorAll('.memListTbl tr:not(:first-child)');
-            searchInput.addEventListener('keyup', function () {
-                const searchText = searchInput.value.toLowerCase();
-                rows.forEach(row => {
-                    const cells = row.querySelectorAll('td');
-                    const match = Array.from(cells).some(cell => cell.innerText.toLowerCase().includes(searchText));
-                    row.style.display = match ? '' : 'none';
-                });
-            });
-        });
-        </script>
-        
 </head>
 <body>
     <div class="container">
         <div>
             <!-- 제목 -->
-             <h1 class="element">BJ Com 회원 관리 페이지</h1>
+             <h1 class="element">회원 관리 페이지</h1>
         </div>
         <div>
             <!-- 입력 폼 -->
-             <form action="">
-                <table class="memberForm">
+             <form id="memberForm">
+                <table>
                     <tr>
                         <th><label for="name">이름</label></th>
-                        <td><input type="text" 
-                        name="" id="name" placeholder="성명을 입력 하세요"></td>
+                        <td><input type="text" name="name" id="name" placeholder="성명을 입력 하세요"></td>
                     </tr>
                     <tr>
                         <th><label for="dept">부서</label></th>
-                        <td><input type="text" 
-                        name="" id="dept" value="경영지원"></td>
+                        <td><input type="text" name="dept" id="dept" value="경영지원"></td>
                     </tr>
                     <tr>
                         <th><label for="rank">직책</label></th>
-                        <td><input type="text" 
-                        name="" id="rank" value="과장"></td>
+                        <td><input type="text" name="rank" id="rank" value="과장"></td>
                     </tr>
                     <tr>
                         <th><label for="gender">성별</label></th>
                         <td>
-                            <input type="radio" 
-                            name="gender" id="gender"> 남성
-                            <input type="radio" 
-                            name="gender" id="gender" checked> 여성
-                            <input type="radio" 
-                            name="gender" id="gender"> 기타
+                            <input type="radio" name="gender" value="남성" id="gender-male"> 남성
+                            <input type="radio" name="gender" value="여성" id="gender-female" checked> 여성
+                            <input type="radio" name="gender" value="기타" id="gender-other"> 기타
                         </td>
                     </tr>
                     <tr>
                         <th><label for="favorit">관심</label></th>
                         <td>
-                            <input type="checkbox" 
-                            name="favorit" id="favorit" value="sw개발" checked> SW개발
-                            <input type="checkbox" 
-                            name="favorit" id="favorit" value="영업" checked> 영업
-                            <input type="checkbox" 
-                            name="favorit" id="favorit" value="독서"> 독서
-                            <input type="checkbox" 
-                            name="favorit" id="favorit" value="직업교육"> 직업교육
+                            <input type="checkbox" name="favorit" value="sw개발" checked> SW개발
+                            <input type="checkbox" name="favorit" value="영업" checked> 영업
+                            <input type="checkbox" name="favorit" value="독서"> 독서
+                            <input type="checkbox" name="favorit" value="직업교육"> 직업교육
                         </td>
                     </tr>
                     <tr>
                         <th><label for="photo">사진</label></th>
-                        <td><input type="file" name="" id="photo"></td>
+                        <td><input type="file" name="photo" id="photo"></td>
                     </tr>
                     <tr>
                         <td colspan="2">
@@ -139,13 +103,10 @@
         <hr>
         <div>
             <!-- 목록 -->
-            <p>
-                검색 <input type="text"> <button>검색</button>
-            </p>
-            <table class="memListTbl">
+            <table class="memListTbl" id="memberList">
                 <tr>
                     <th>
-                        <input type="checkbox" name="" id="">
+                        <input type="checkbox" id="selectAll">
                     </th>
                     <th>번호</th>
                     <th>사진</th>
@@ -156,7 +117,7 @@
                     <th>삭제</th>
                 </tr>
                 <tr>
-                    <td rowspan="2"><input type="checkbox" name="" id=""></td>
+                    <td rowspan="2"><input type="checkbox"></td>
                     <td rowspan="2">1043</td>
                     <td>
                         <img src="img/img01.png" alt="사원1의 사진">
@@ -164,8 +125,8 @@
                     <td>홍길동</td>
                     <td>개발</td>
                     <td>대리</td>
-                    <td rowspan="2"><button>Edit</button></td>
-                    <td rowspan="2"><button>Delete</button></td>
+                    <td rowspan="2"><button onclick="editMember(this)">Edit</button></td>
+                    <td rowspan="2"><button onclick="deleteMember(this)">Delete</button></td>
                 </tr>
                 <tr>
                     <td colspan="4">
@@ -193,9 +154,9 @@
                             </tr>
                             <tr>
                                 <td colspan="5">
-                                    댓글 <input type="text">
-                                    작성자 <input type="text">
-                                    <button>댓글입력</button>
+                                    댓글 <input type="text" class="commentInput">
+                                    작성자 <input type="text" class="commentAuthor">
+                                    <button onclick="addComment(this)">댓글입력</button>
                                 </td>
                             </tr>
                         </table>
@@ -204,5 +165,154 @@
             </table>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let memberCount = 1043; // 이미 추가된 회원 번호 이후로 시작합니다.
+            const form = document.getElementById('memberForm');
+            const memberList = document.getElementById('memberList');
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const name = document.getElementById('name').value;
+                const dept = document.getElementById('dept').value;
+                const rank = document.getElementById('rank').value;
+                const gender = document.querySelector('input[name="gender"]:checked').value;
+                const interests = Array.from(document.querySelectorAll('input[name="favorit"]:checked')).map(cb => cb.value).join(', ');
+                const photoInput = document.getElementById('photo');
+                const photoFile = photoInput.files[0];
+
+                let photoUrl = '';
+                if (photoFile) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        photoUrl = e.target.result;
+                        addMemberRow(name, dept, rank, gender, interests, photoUrl);
+                    };
+                    reader.readAsDataURL(photoFile);
+                } else {
+                    addMemberRow(name, dept, rank, gender, interests, '없음');
+                }
+
+                form.reset();
+            });
+
+            function addMemberRow(name, dept, rank, gender, interests, photoUrl) {
+                memberCount++;
+                const row = document.createElement('tr');
+                const subRow = document.createElement('tr');
+
+                row.innerHTML = `
+                    <td rowspan="2"><input type="checkbox"></td>
+                    <td rowspan="2">${memberCount}</td>
+                    <td>${photoUrl === '없음' ? '없음' : `<img src="${photoUrl}" alt="Photo" style="width:50px; height:auto;">`}</td>
+                    <td>${name}</td>
+                    <td>${dept}</td>
+                    <td>${rank}</td>
+                    <td rowspan="2"><button onclick="editMember(this)">Edit</button></td>
+                    <td rowspan="2"><button onclick="deleteMember(this)">Delete</button></td>
+                `;
+                subRow.innerHTML = `
+                    <td colspan="4">
+                        <table class="subTbl" width="100%" cellspacing="0">
+                            <tr>
+                                <td width="10px">번호</td>
+                                <td>댓글내용</td>
+                                <td>작성자</td>
+                                <td>수정</td>
+                                <td>삭제</td>
+                            </tr>
+                            <!-- 댓글을 여기 추가 -->
+                            <tr>
+                                <td colspan="5">
+                                    댓글 <input type="text" class="commentInput">
+                                    작성자 <input type="text" class="commentAuthor">
+                                    <button onclick="addComment(this)">댓글입력</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                `;
+                memberList.appendChild(row);
+                memberList.appendChild(subRow);
+            }
+
+            window.editMember = function (button) {
+                const row = button.closest('tr');
+                const name = row.cells[3].textContent;
+                const dept = row.cells[4].textContent;
+                const rank = row.cells[5].textContent;
+
+                document.getElementById('name').value = name;
+                document.getElementById('dept').value = dept;
+                document.getElementById('rank').value = rank;
+
+                deleteMember(button);
+            };
+
+            window.deleteMember = function (button) {
+                const row = button.closest('tr');
+                const nextRow = row.nextElementSibling;
+                if (nextRow && nextRow.rowIndex === row.rowIndex + 1) {
+                    memberList.removeChild(nextRow);
+                }
+                memberList.removeChild(row);
+            };
+
+            window.addComment = function (button) {
+                const commentInput = button.previousElementSibling.previousElementSibling;
+                const authorInput = button.previousElementSibling;
+                const comment = commentInput.value.trim();
+                const author = authorInput.value.trim();
+                
+                if (comment && author) {
+                    const commentRow = button.closest('tr');
+                    const table = commentRow.parentNode;
+                    const newRow = document.createElement('tr');
+                    const commentIndex = table.querySelectorAll('tr').length - 4; // 새로운 댓글 번호
+
+                    newRow.innerHTML = `
+                        <td>${commentIndex}</td>
+                        <td>${comment}</td>
+                        <td>${author}</td>
+                        <td><button onclick="editComment(this)">수정</button></td>
+                        <td><button onclick="deleteComment(this)">삭제</button></td>
+                    `;
+                    table.insertBefore(newRow, commentRow);
+
+                    commentInput.value = '';
+                    authorInput.value = '';
+                }
+            };
+
+            window.editComment = function (button) {
+                const row = button.closest('tr');
+                const commentCell = row.cells[1];
+                const authorCell = row.cells[2];
+
+                const newComment = prompt('댓글을 수정하세요:', commentCell.textContent);
+                const newAuthor = prompt('작성자를 수정하세요:', authorCell.textContent);
+
+                if (newComment !== null) {
+                    commentCell.textContent = newComment;
+                }
+                if (newAuthor !== null) {
+                    authorCell.textContent = newAuthor;
+                }
+            };
+
+            window.deleteComment = function (button) {
+                const row = button.closest('tr');
+                row.parentNode.removeChild(row);
+            };
+
+            // 전체 선택 기능
+            document.getElementById('selectAll').addEventListener('change', function () {
+                const checkboxes = memberList.querySelectorAll('tbody input[type="checkbox"]');
+                checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+            });
+        });
+    </script>
 </body>
 </html>
