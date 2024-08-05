@@ -48,6 +48,32 @@
             min-width: 600px;
         }
     </style>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 폼 제출 시 유효성 검사
+            document.querySelector('form').addEventListener('submit', function (event) {
+                const name = document.getElementById('name').value;
+                if (name.trim() === '') {
+                    alert('이름을 입력하세요.');
+                    event.preventDefault();
+                }
+            });
+        
+            // 검색 기능
+            const searchInput = document.querySelector('input[type="text"]');
+            const rows = document.querySelectorAll('.memListTbl tr:not(:first-child)');
+            searchInput.addEventListener('keyup', function () {
+                const searchText = searchInput.value.toLowerCase();
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    const match = Array.from(cells).some(cell => cell.innerText.toLowerCase().includes(searchText));
+                    row.style.display = match ? '' : 'none';
+                });
+            });
+        });
+        </script>
+        
 </head>
 <body>
     <div class="container">

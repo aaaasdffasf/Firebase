@@ -53,6 +53,20 @@
             bottom: 0;
         }
     </style>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.addEventListener('click', function () {
+                    const foodName = this.querySelector('h2').innerText;
+                    const description = this.querySelector('p').innerText;
+                    showPopup(`음식: ${foodName}\n설명: ${description}`);
+                });
+            });
+        });
+        </script>
+        
 </head>
 <body>
     <header>

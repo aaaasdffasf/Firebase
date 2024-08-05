@@ -80,6 +80,20 @@
             bottom: 0;
         }
     </style>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const movies = document.querySelectorAll('.movie');
+            movies.forEach(movie => {
+                movie.addEventListener('click', function () {
+                    const title = this.querySelector('h3').innerText;
+                    const description = this.querySelector('p').innerText;
+                    showPopup(`영화 제목: ${title}\n설명: ${description}`);
+                });
+            });
+        });
+        </script>
+        
 </head>
 <body>
     <header>
@@ -94,14 +108,15 @@
             <h2>추천 영화</h2>
             <div class="movie">
                 <h3>영화 제목 1</h3>
-                <p>이 영화는 ...</p>
+                <p>이 영화는 '마석도'는 더 커진 판을 잡기 위해 '장이수'(박지환)에게 뜻밖의 협력을 제안하고 광역수사대는 물론, 사이버수사대까지 합류해 범죄를 소탕하기 시작하는데… </p>
                 <td>
                     <img src="img/img02.png" alt="영화1">
                 </td>
             </div>
             <div class="movie">
                 <h3>영화 제목 2</h3>
-                <p>이 영화는 ...</p>
+                <p>쿵푸팬더 4 ... 내면의 평화가 찾아왔다고 믿는 용의 전사 포는 자신을 대신할 후계자를 찾으려 한다. 하지만 모든 쿵푸 마스터들의 능력을 복제하는 빌런 카멜레온이 나타나 ...
+                </p>
                 <td>
                     <img src="img/img03.png" alt="영화2">
                 </td>

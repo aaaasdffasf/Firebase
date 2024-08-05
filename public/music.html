@@ -78,6 +78,21 @@ footer {
 }
 
     </style>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const iframe = document.querySelector('iframe');
+            const playButton = document.createElement('button');
+            playButton.innerText = 'Play Video';
+            playButton.addEventListener('click', function () {
+                const src = iframe.src;
+                iframe.src = src + (src.includes('?') ? '&' : '?') + 'autoplay=1';
+                playButton.style.display = 'none';
+            });
+            iframe.parentElement.insertBefore(playButton, iframe);
+        });
+        </script>
+        
 </head>
 <body>
     
